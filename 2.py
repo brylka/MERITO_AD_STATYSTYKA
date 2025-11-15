@@ -1,5 +1,7 @@
 from scipy import stats
 import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 print("="*50,"TEST T-STUDENTA DLA JEDNEJ PRÓBKI","="*50,sep="\n")
 
@@ -40,3 +42,21 @@ else:
     print(f"p-value ({p_value:.2f}) >= a ({alpha})")
     print("  - NIE ODRZUCAMY H0")
     print("  - Brak podstaw do odrzucenia twierdzenia producenta")
+
+
+sns.set_style("whitegrid")
+
+fig, axes = plt.subplots(1,2, figsize=(14, 5))
+fig.suptitle("Analiza Testów Statystycznych", fontsize=16, fontweight="bold")
+
+axes[0].hist(baterie, bins=8, color="skyblue", alpha=0.7, edgecolor="black", density=True)
+axes[0].axvline(np.mean(baterie), color="red", linestyle="--", linewidth=2,
+                label=f"Średnia próbki: {np.mean(baterie):.2f}")
+axes[0].axvline(mu_0, color="green", linestyle="--", linewidth=2,
+                label=f"Hipoteza zerowa: {mu_0:.2f}")
+axes[0].set_xlabel("Czas działania baterii [godz.]")
+axes[0].set_ylabel("Częstość")
+axes[0].set_title('Test t (1 próbka): Rozkład danych')
+axes[0].legend()
+
+plt.show()
