@@ -71,3 +71,14 @@ print(df.info())
 
 print("\nStatystyki opisowe:")
 print(df["wynik"].describe().round(2))
+
+# Dodatkowe statystyki
+print(f"\nSkośność:        {df["wynik"].skew():.4f}")
+print(f"Kurtoza:         {df["wynik"].kurtosis():.4f}")
+
+if df["wynik"].skew() > 0:
+    print("Rozkład jest skośny prawostronnie (prawy ogon dłuższy)")
+elif df["wynik"].skew() < 0:
+    print("Rozkład jest skośny lewostronnie (lewy ogon dłuższy)")
+else:
+    print("Rozkład jest symetryczny")
