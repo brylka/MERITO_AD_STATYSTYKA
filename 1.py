@@ -26,3 +26,11 @@ print(f"Rozstęp:              {np.ptp(wyniki):.2f} pkt")
 #print(f"Rozstęp:              {np.max(wyniki)-np.min(wyniki):.2f} pkt")
 print(f"Wariancja:            {np.var(wyniki, ddof=1):.2f} pkt^2")
 print(f"Odchylenie std:       {np.std(wyniki, ddof=1):.2f} pkt")
+
+# Kwartyle
+print("\n3. KWARTYLE:")
+print("-"*40)
+print(f"Q1 (25%):             {np.percentile(wyniki, 25):.2f} pkt")
+print(f"Q2 (50% - mediana):   {np.percentile(wyniki, 50):.2f} pkt")
+print(f"Q3 (75%):             {np.percentile(wyniki, 75):.2f} pkt")
+print(f"IQR (Q3 - Q1):        {np.percentile(wyniki, 75)-np.percentile(wyniki, 25):.2f} pkt")
