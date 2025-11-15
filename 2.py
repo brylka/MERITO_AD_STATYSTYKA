@@ -59,4 +59,19 @@ axes[0].set_ylabel("Częstość")
 axes[0].set_title('Test t (1 próbka): Rozkład danych')
 axes[0].legend()
 
+x = np.linspace(-4, 4, 1000)
+y = stats.t.pdf(x, df=len(baterie) - 1)
+
+axes[1].plot(x, y, 'b-', linewidth=2, label="Rozkład t-Studenta")
+axes[1].axvline(t_critical, color="green", linestyle="--", linewidth=2,
+                label=f"t_kryt: +-{t_critical:.2f}")
+axes[1].axvline(-t_critical, color="green", linestyle="--", linewidth=2)
+axes[1].axvline(t_statistic, color="red", linestyle="--", linewidth=2,
+                label=f"t: {t_statistic:.2f}")
+
+axes[1].set_xlabel("Wartość t")
+axes[1].set_ylabel("Gęstość")
+axes[1].set_title(f"Roskład t-Studenta (df={len(baterie)-1}")
+axes[1].legend()
+
 plt.show()
