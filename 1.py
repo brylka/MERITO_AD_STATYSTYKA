@@ -88,5 +88,17 @@ sns.set_style("whitegrid")
 fig, axes = plt.subplots(2,2, figsize=(14, 10))
 fig.suptitle("Analiza Wizualna Wyników Testu", fontsize=16, fontweight="bold")
 
+# Histogram z krzywą gęstości
+axes[0, 0].hist(wyniki, bins=8, color="skyblue", alpha=0.7, edgecolor="black", density=True)
+axes[0, 0].axvline(np.mean(wyniki), color="red", linestyle="--", linewidth=2,
+                   label=f"Średnia: {np.mean(wyniki):.2f}")
+axes[0, 0].axvline(np.median(wyniki), color="green", linestyle="--", linewidth=2,
+                   label=f"Mediana: {np.median(wyniki):.2f}")
+axes[0, 0].set_xlabel("Wyniki [pkt]")
+axes[0, 0].set_ylabel("Gęstość")
+axes[0, 0].set_title("Histogram z miarami tendencji cntralnej")
+axes[0, 0].legend()
+
+
 plt.savefig("statystyka_opisowa_wizualizacja.png", dpi=300)
 plt.show()
