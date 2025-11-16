@@ -74,3 +74,79 @@ samples = np.random.binomial(n, p, size=1000)
 print(f"Wygenerowano 1000 próbek")
 print(f"Średnia z próbek: {np.mean(samples):.2f} (oczekiwane: {mean})")
 print(f"Odch. std z próbek: {np.std(samples):.2f} (oczekiwane: {std:.2f})")
+
+
+print("\n" + "="*60)
+print("ROZKŁAD NORMALNY - N(μ=178, σ=7)")
+print("="*60)
+
+# Parametry
+mu = 178  # średnia
+sigma = 7  # odchylenie standardowe
+
+# a) P(171 < X < 185)
+prob_a = stats.norm.cdf(185, mu, sigma) - stats.norm.cdf(171, mu, sigma)
+print(f"\na) P(171 < X < 185) = {prob_a:.4f} = {prob_a*100:.2f}%")
+
+# b) 95. percentyl (top 5%)
+percentile_95 = stats.norm.ppf(0.95, mu, sigma)
+print(f"\nb) Wzrost dla top 5%: {percentile_95:.2f} cm")
+
+# c) P(X > 190)
+prob_c = 1 - stats.norm.cdf(190, mu, sigma)
+print(f"\nc) P(X > 190) = {prob_c:.4f} = {prob_c*100:.2f}%")
+
+# Reguła 68-95-99.7
+print("\nREGUŁA 68-95-99.7:")
+print(f"68% danych: [{mu-sigma:.1f}, {mu+sigma:.1f}] cm")
+print(f"95% danych: [{mu-2*sigma:.1f}, {mu+2*sigma:.1f}] cm")
+print(f"99.7% danych: [{mu-3*sigma:.1f}, {mu+3*sigma:.1f}] cm")
+
+# Wizualizacja
+x = np.linspace(mu - 4*sigma, mu + 4*sigma, 1000)
+y = stats.norm.pdf(x, mu, sigma)
+
+plt.figure(figsize=(14, 5))
+
+# PDF
+plt.subplot(1, 2, 1)
+plt.plot(x, y, 'b-', linewidth=2, label='PDF')
+plt.fill_between(x, y, where=(x >= 171) & (x <= 185),
+                 alpha=0.3, color='green', label='P(171 < X < 185)')
+plt.axvline(mu, color='red', linestyle='--', linewidth=2, label=f'μ = {mu}')
+plt.axvline(mu-sigma, color='orange', linestyle=':', alpha=0.7, label='μ±σ')
+plt.axvline(mu+sigma, color='orange', linestyle=':', alpha=0.7)
+plt.axvline(percentile_95, color='purple', linestyle='--',
+           label=f'95% percentyl = {percentile_95:.1f}')
+plt.xlabel('Wzrost [cm]')
+plt.ylabel('Gęstość prawdopodobieństwa')
+plt.title(f'Rozkład Normalny N(μ={mu}, σ={sigma})')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+# Standaryzacja
+plt.subplot(1, 2, 2)
+z = np.linspace(-4, 4, 1000)
+y_standard = stats.norm.pdf(z, 0, 1)
+plt.plot(z, y_standard, 'b-', linewidth=2)
+plt.fill_between(z, y_standard, where=(z >= -1) & (z <= 1),
+                 alpha=0.3, color='green', label='68% (±1σ)')
+plt.fill_between(z, y_standard, where=(z >= -2) & (z <= -1),
+                 alpha=0.2, color='yellow')
+plt.fill_between(z, y_standard, where=(z >= 1) & (z <= 2),
+                 alpha=0.2, color='yellow', label='95% (±2σ)')
+plt.xlabel('Z-score')
+plt.ylabel('Gęstość')
+plt.title('Standardowy Rozkład Normalny N(0,1)')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+
+# Generowanie próbek
+print("\nGENEROWANIE PRÓBEK:")
+samples_normal = np.random.normal(mu, sigma, size=1000)
+print(f"Średnia z próbek: {np.mean(samples_normal):.2f} (oczekiwane: {mu})")
+print(f"Odch. std z próbek: {np.std(samples_normal):.2f} (oczekiwane: {sigma})")
+
