@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Prognowowanie cen nieruchomości</title>
+</head>
+<body>
+    <h1>Wprowadź dane nieruchomości</h1>
+<form action="/" method="POST">
+    <table>
+        <tr><td>MedInc: <td><input type="number" name="MedInc" min="4" max="12" step="0.01" value="{{ new_property.MedInc }}" required><br>
+        <tr><td>HouseAge: <td><input type="number" name="HouseAge" min="1" max="100" step="0.01" value="{{ new_property.HouseAge }}" required><br>
+        <tr><td>AveRooms: <td><input type="number" name="AveRooms" min="1" max="10" step="0.01" value="{{ new_property.AveRooms }}" required><br>
+        <tr><td>AveBedrms: <td><input type="number" name="AveBedrms" min="1" max="5" step="0.01" value="{{ new_property.AveBedrms }}" required><br>
+        <tr><td>Population: <td><input type="number" name="Population" min="100" max="5000" step="0.01" value="{{ new_property.Population }}" required><br>
+        <tr><td>AveOccup: <td><input type="number" name="AveOccup" min="1" max="10" step="0.01" value="{{ new_property.AveOccup }}" required><br>
+        <tr><td>Latitude: <td><input type="number" name="Latitude" min="30" max="50" step="0.01" value="{{ new_property.Latitude }}" required><br>
+        <tr><td>Longitude: <td><input type="number" name="Longitude" min="-130" max="-110" step="0.01" value="{{ new_property.Longitude }}" required><br>
+        <tr><td><td><button type="submit">Prognocuj cenę</button>
+    </table>
+</form>
+
+{% if formatted_value != None %}
+    <p>Prognozowana cena nieruchomości: {{ formatted_value }}</p>
+{% endif %}
+</body>
+</html>
