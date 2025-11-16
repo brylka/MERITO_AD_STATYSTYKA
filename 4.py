@@ -150,3 +150,57 @@ samples_normal = np.random.normal(mu, sigma, size=1000)
 print(f"Średnia z próbek: {np.mean(samples_normal):.2f} (oczekiwane: {mu})")
 print(f"Odch. std z próbek: {np.std(samples_normal):.2f} (oczekiwane: {sigma})")
 
+
+
+
+print("\n" + "="*60)
+print("ROZKŁAD POISSONA - Pois(λ=3)")
+print("="*60)
+
+# Parametr
+lambda_param = 3  # średnia liczba zdarzeń
+
+# a) P(X = 5)
+prob_5 = stats.poisson.pmf(5, lambda_param)
+print(f"\na) P(X = 5) = {prob_5:.4f} = {prob_5*100:.2f}%")
+
+# b) Wartość oczekiwana dla 2 godzin
+lambda_2h = 2 * lambda_param
+print(f"\nb) Oczekiwana liczba klientów (2h): {lambda_2h}")
+
+# Prawdopodobieństwa dla różnych k
+print("\nPrawdopodobieństwa dla λ = 3:")
+for k in range(8):
+    prob = stats.poisson.pmf(k, lambda_param)
+    print(f"P(X = {k}) = {prob:.4f}")
+
+# Wizualizacja
+k_poisson = np.arange(0, 12)
+prob_poisson = stats.poisson.pmf(k_poisson, lambda_param)
+
+plt.figure(figsize=(12, 5))
+
+plt.subplot(1, 2, 1)
+plt.bar(k_poisson, prob_poisson, alpha=0.7, edgecolor='black', color='coral')
+plt.bar(5, stats.poisson.pmf(5, lambda_param), color='red', alpha=0.8, label='P(X=5)')
+plt.axvline(lambda_param, color='green', linestyle='--',
+           linewidth=2, label=f'λ = {lambda_param}')
+plt.xlabel('Liczba klientów (k)')
+plt.ylabel('Prawdopodobieństwo P(X=k)')
+plt.title(f'Rozkład Poissona (λ={lambda_param})')
+plt.legend()
+plt.grid(True, alpha=0.3, axis='y')
+
+# Porównanie różnych λ
+plt.subplot(1, 2, 2)
+for lam in [1, 3, 5, 10]:
+    prob_temp = stats.poisson.pmf(k_poisson, lam)
+    plt.plot(k_poisson, prob_temp, marker='o', label=f'λ={lam}')
+plt.xlabel('k')
+plt.ylabel('P(X=k)')
+plt.title('Rozkład Poissona dla różnych λ')
+plt.legend()
+plt.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()
